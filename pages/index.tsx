@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import React from "react";
 
-const Title = styled.h1`
-  color: red;
-  font-size: 50px;
-`;
+const Home = () => {
+  return (
+    <div>
+      <h1>Your Trips</h1>
+    </div>
+  );
+};
 
-export default function Home() {
-  return <Title>My page</Title>;
-}
+export default Home;
