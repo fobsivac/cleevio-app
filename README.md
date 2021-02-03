@@ -1,28 +1,35 @@
-# TypeScript & Styled Components Next.js example
+# Cleevio Trip Management App
 
-This is a really simple project that show the usage of Next.js with TypeScript and Styled Components.
+This is a simple trip management application for Cleevio.
 
-## Deploy your own
+## Tech Stack
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+The following technologies are used in this project:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript-styled-components&project-name=with-typescript-styled-components&repository-name=with-typescript-styled-components)
+- Next.js ▲
+- TypeScript ᴛs
+- Styled-components 💅
 
-## How to use it?
+## Available Scripts
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+Running the application for development:
 
-```bash
-npx create-next-app --example with-typescript-styled-components with-typescript-styled-components-app
-# or
-yarn create next-app --example with-typescript-styled-components with-typescript-styled-components-app
+```
+next
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+Building the project for production:
 
-## Notes
+```
+next build
+```
 
-This is an amalgamation of the 2 existing examples:
+Serving the production build:
 
-- [with-typescript](https://github.com/vercel/next.js/tree/canary/examples/with-typescript)
-- [with-styled-components](https://github.com/vercel/next.js/tree/canary/examples/with-styled-components)
+```
+next start
+```
+
+## Deployment
+
+Project is deployed via `vercel` at [cleevio-app.vercel.app](https://cleevio-app.vercel.app/).
