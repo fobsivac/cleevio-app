@@ -1,10 +1,18 @@
 import React from "react";
+import { Title } from "../styles/title";
+import { PageContent } from "../styles/page";
+import Trips from "../components/trips/Trips";
+import TripsSidebar from "../components/trips/TripsSidebar";
 
 const Home = () => {
   return (
-    <div>
-      <h1>Your Trips</h1>
-    </div>
+    <>
+      <PageContent>
+        <Title border>Your Trips</Title>
+        <Trips />
+      </PageContent>
+      <TripsSidebar />
+    </>
   );
 };
 

@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 import { colors } from "../../styles/variables";
-import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
 
 const Page: FC = ({ children }) => {
   return (
     <Container>
-      <Sidebar />
+      <Navbar />
       <Main>{children}</Main>
     </Container>
   );
@@ -22,7 +22,7 @@ const Container = styled.div`
 `;
 
 const Main = styled.main`
-  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
   background-color: ${colors.white};
-  overflow-y: auto;
 `;
