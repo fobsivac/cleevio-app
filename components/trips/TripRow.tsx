@@ -1,23 +1,22 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 import { colors } from "../../styles/variables";
-import Image from "next/image";
 import TripInfo from "./TripInfo";
 import TripActions from "./TripActions";
+import { Trip } from "../../utils/models";
+import TripFlag from "./TripFlag";
 
-const Trip: FC = () => {
+const TripRow: FC<{ trip: Trip }> = ({ trip }) => {
   return (
     <Container>
-      <Flag>
-        <Image src="/flags/cz.svg" width={40} height={40} />
-      </Flag>
-      <TripInfo />
-      <TripActions />
+      <TripFlag country={trip.address.country} />
+      <TripInfo trip={trip} />
+      <TripActions id={trip.id} />
     </Container>
   );
 };
 
-export default Trip;
+export default TripRow;
 
 const Container = styled.div`
   display: grid;
@@ -27,14 +26,5 @@ const Container = styled.div`
 
   padding: 1.25rem;
   background-color: ${colors.secondary};
-
   border-radius: 10px;
-`;
-
-const Flag = styled.div`
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  padding: 0.25rem;
-  background-color: ${colors.gray};
 `;

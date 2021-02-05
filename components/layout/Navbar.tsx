@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import Icon from "../base/Icon";
 
 const links = [
-  { id: "home", href: "/", icon: "clock" },
+  { id: "trips", href: "/trips", icon: "clock" },
   { id: "futureFeature", href: "/future-feature", icon: "note" },
   { id: "futureSection", href: "/future-section", icon: "globe" },
 ];
@@ -16,7 +16,7 @@ const links = [
 const Navbar: FC = () => {
   const router = useRouter();
 
-  const isActive = (href: string): boolean => href === router.pathname;
+  const isActive = (href: string): boolean => router.pathname.includes(href);
 
   return (
     <Container>
@@ -25,7 +25,9 @@ const Navbar: FC = () => {
           <Image src="/logo.svg" alt="Cleevio" height={38} width={134} />
         </a>
       </Link>
-      <Button icon="add">New Trip</Button>
+      <Button icon="add" onClick={() => router.push("/trips/new")}>
+        New Trip
+      </Button>
       <NavLinks>
         {links.map((link) => (
           <NavLink key={link.id} active={isActive(link.href)}>

@@ -1,13 +1,16 @@
 import React, { FC } from "react";
+import TripRow from "./TripRow";
+import { Trip } from "../../utils/models";
 import styled from "styled-components";
-import Trip from "./Trip";
 
-const Trips: FC = () => {
+const Trips: FC<{ trips?: Trip[] }> = ({ trips }) => {
   return (
     <Container>
-      {Array.from({ length: 4 }).map((_, i) => (
-        <Trip key={i} />
-      ))}
+      {!trips ? (
+        <div>No trips</div>
+      ) : (
+        trips.map((trip) => <TripRow key={trip.id} trip={trip} />)
+      )}
     </Container>
   );
 };

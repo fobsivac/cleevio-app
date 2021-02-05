@@ -7,11 +7,16 @@ interface Props {
   disabled?: boolean;
   icon?: string;
   loading?: boolean;
+  onClick?: () => void;
 }
 
-const Button: FC<Props> = ({ disabled, icon, loading, children }) => {
+const Button: FC<Props> = ({ disabled, icon, loading, children, onClick }) => {
   return (
-    <Wrapper disabled={disabled || loading} iconOnly={!children}>
+    <Wrapper
+      disabled={disabled || loading}
+      iconOnly={!children}
+      onClick={onClick}
+    >
       {children}
       {loading ? (
         <Loader src="/icons/loader.svg" width={16} height={16} />

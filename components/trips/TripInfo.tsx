@@ -1,19 +1,25 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 import { colors } from "../../styles/variables";
+import { Trip } from "../../utils/models";
 
-const TripInfo: FC = () => {
+const TripInfo: FC<{ trip: Trip }> = ({ trip }) => {
   return (
     <Container>
       <Row>
-        <Country>Czech Republic</Country>
+        <Country>{trip.address.country}</Country>
         <Divider />
-        <Details>Jul 14 - Sep 20</Details>
+        <Details>
+          {trip.start_date} - {trip.end_date}
+        </Details>
       </Row>
       <Row>
-        <Company>Daimler AG</Company>
+        <Company>{trip.company_name}</Company>
         <Divider />
-        <Details>Mercedes-Benz Plant Berlin' Daimlerstraße 143, 122...</Details>
+        <Details>
+          {trip.address.street} {trip.address.street_num}, {trip.address.zip}{" "}
+          {trip.address.city}
+        </Details>
       </Row>
     </Container>
   );
