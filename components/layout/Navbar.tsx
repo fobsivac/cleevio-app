@@ -1,16 +1,26 @@
 import React, { FC } from "react";
 import styled, { css } from "styled-components";
-import { colors } from "../../styles/variables";
+import { colors, sizes } from "../../styles/variables";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "../base/Button";
+import Button from "../common/Button";
 import { useRouter } from "next/router";
-import Icon from "../base/Icon";
+import Icon from "../common/Icon";
 
 const links = [
-  { id: "trips", href: "/trips", icon: "clock" },
-  { id: "futureFeature", href: "/future-feature", icon: "note" },
-  { id: "futureSection", href: "/future-section", icon: "globe" },
+  { id: "trips", href: "/trips", label: "Your trips", icon: "clock" },
+  {
+    id: "futureFeature",
+    label: "Future feature",
+    href: "/future-feature",
+    icon: "note",
+  },
+  {
+    id: "futureSection",
+    label: "Future section",
+    href: "/future-section",
+    icon: "globe",
+  },
 ];
 
 const Navbar: FC = () => {
@@ -35,7 +45,7 @@ const Navbar: FC = () => {
               <Icon name={link.icon} />
             </NavLinkIcon>
             <Link key={link.id} href={link.href}>
-              <a>{link.id}</a>
+              <a>{link.label}</a>
             </Link>
           </NavLink>
         ))}
@@ -47,7 +57,7 @@ const Navbar: FC = () => {
 export default Navbar;
 
 const Container = styled.nav`
-  display: flex;
+  display: none;
   flex-flow: column;
   align-items: flex-start;
 
@@ -58,6 +68,10 @@ const Container = styled.nav`
 
   > *:not(:last-child) {
     margin-bottom: 1.5rem;
+  }
+
+  @media screen and (min-width: ${sizes.tablet}) {
+    display: flex;
   }
 `;
 
@@ -92,5 +106,5 @@ const NavLink = styled.li<{ active?: boolean }>`
 const NavLinkIcon = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
 `;

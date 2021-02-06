@@ -1,17 +1,18 @@
 import React from "react";
 import { NextPage } from "next";
 import { PageContent } from "../../styles/page";
-import { Title } from "../../styles/title";
-import TripsSidebar from "../../components/trips/TripsSidebar";
+import { PageTitle } from "../../styles/title";
+import Trip from "../../components/trip/Trip";
+import TripSidebar from "../../components/trip/TripSidebar";
 
 const NewTripPage: NextPage = () => {
   return (
     <>
       <PageContent>
-        <Title border>New Trip</Title>
-        <div>new trip</div>
+        <PageTitle>New trip</PageTitle>
+        <Trip />
       </PageContent>
-      <TripsSidebar />
+      <TripSidebar />
     </>
   );
 };

@@ -1,17 +1,17 @@
-export interface Trip extends TripData {
+export interface ITrip extends ITripData {
   id: string;
 }
 
-export interface TripData {
+export interface ITripData {
   start_date: string;
   end_date: string;
   company_name: string;
-  address: Address;
+  address: IAddress;
   covid: boolean;
   covid_test_date?: string;
 }
 
-export interface Address {
+export interface IAddress {
   street?: string;
   street_num?: number;
   city?: string;
@@ -19,7 +19,7 @@ export interface Address {
   zip: string;
 }
 
-export interface Country {
+export interface ICountry {
   value: string;
   label: string;
 }

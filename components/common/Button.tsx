@@ -4,18 +4,33 @@ import Icon from "./Icon";
 import { colors } from "../../styles/variables";
 
 interface Props {
+  btnType?: "primary" | "secondary" | "red";
   disabled?: boolean;
   icon?: string;
   loading?: boolean;
-  onClick?: () => void;
+  onClick?: () => any | Promise<any>;
+  wide?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
-const Button: FC<Props> = ({ disabled, icon, loading, children, onClick }) => {
+const Button: FC<Props> = ({
+  btnType,
+  disabled,
+  icon,
+  loading,
+  children,
+  onClick,
+  wide,
+  type,
+}) => {
   return (
     <Wrapper
+      btnType={btnType}
       disabled={disabled || loading}
       iconOnly={!children}
       onClick={onClick}
+      wide={wide}
+      type={type}
     >
       {children}
       {loading ? (
@@ -29,7 +44,11 @@ const Button: FC<Props> = ({ disabled, icon, loading, children, onClick }) => {
 
 export default Button;
 
-const Wrapper = styled.button<{ iconOnly: boolean }>`
+const Wrapper = styled.button<{
+  btnType?: "primary" | "secondary" | "red";
+  iconOnly: boolean;
+  wide?: boolean;
+}>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,22 +63,39 @@ const Wrapper = styled.button<{ iconOnly: boolean }>`
         `
       : css`
           width: 100%;
-          max-width: 12rem;
         `}
+
+  ${({ wide }) => !wide && "max-width: 14rem;"}
 
   padding: 1rem 1.25rem;
   outline: none;
   border: none;
   border-radius: 10px;
 
-  font-size: 1rem;
+  font-size: 14px;
   font-weight: 600;
 
-  background-color: ${colors.primary};
-  transition: background-color 0.2s ease-in-out;
+  color: ${({ btnType }) =>
+    btnType === "secondary"
+      ? colors.gray6
+      : btnType === "red"
+      ? colors.red
+      : colors.black};
+  background-color: ${({ btnType }) =>
+    btnType === "secondary"
+      ? colors.gray
+      : btnType === "red"
+      ? colors.redLighter
+      : colors.primary};
+  transition: all 0.2s ease-in-out;
 
   &:hover:not(:disabled) {
-    background-color: ${colors.primaryDark};
+    background-color: ${({ btnType }) =>
+      btnType === "secondary"
+        ? colors.gray2
+        : btnType === "red"
+        ? colors.redLight
+        : colors.primaryDark};
     cursor: pointer;
   }
 
@@ -80,7 +116,7 @@ const Wrapper = styled.button<{ iconOnly: boolean }>`
 `;
 
 const Loader = styled.img`
-  animation: spin 2s linear infinite;
+  animation: spin 1s linear infinite;
 
   @keyframes spin {
     100% {

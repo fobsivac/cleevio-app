@@ -1,16 +1,17 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { colors } from "../../styles/variables";
-import { Trip } from "../../utils/models";
+import { colors } from "../../../styles/variables";
+import { ITrip } from "../../../utils/models";
+import { formatDate, formatDateYear } from "../../../utils/formats";
 
-const TripInfo: FC<{ trip: Trip }> = ({ trip }) => {
+const TripInfo: FC<{ trip: ITrip }> = ({ trip }) => {
   return (
     <Container>
       <Row>
         <Country>{trip.address.country}</Country>
         <Divider />
         <Details>
-          {trip.start_date} - {trip.end_date}
+          {formatDate(trip.start_date)} - {formatDateYear(trip.end_date)}
         </Details>
       </Row>
       <Row>
@@ -32,6 +33,7 @@ const Container = styled.div`
   flex-flow: column;
   justify-content: space-between;
   align-self: stretch;
+  min-width: 0;
 `;
 
 const Row = styled.div`
@@ -49,13 +51,16 @@ const Company = styled.span`
 
 const Details = styled.span`
   filter: contrast(0);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const Divider = styled.span`
   display: inline-block;
 
-  width: 1px;
-  height: 0.75rem;
+  min-width: 1px;
+  height: 0.5rem;
 
   margin: 0 1rem;
   background-color: ${colors.gray};

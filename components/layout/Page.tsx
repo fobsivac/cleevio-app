@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { colors } from "../../styles/variables";
+import { colors, sizes } from "../../styles/variables";
 import Navbar from "./Navbar";
+import { Sidebar } from "../../styles/sidebar";
 
 const Page: FC = ({ children }) => {
   return (
@@ -16,13 +17,27 @@ export default Page;
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr;
   height: 100vh;
   position: relative;
+
+  @media screen and (min-width: ${sizes.tablet}) {
+    grid-template-columns: auto 1fr;
+  }
 `;
 
 const Main = styled.main`
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr;
+  height: 100vh;
   background-color: ${colors.white};
+
+  @media screen and (min-width: ${sizes.laptop}) {
+    grid-template-columns: 1fr auto;
+
+    ${Sidebar} {
+      display: flex;
+      flex-direction: column;
+    }
+  }
 `;

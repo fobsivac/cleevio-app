@@ -1,17 +1,17 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { colors } from "../../styles/variables";
+import { colors } from "../../../styles/variables";
 import TripInfo from "./TripInfo";
 import TripActions from "./TripActions";
-import { Trip } from "../../utils/models";
+import { ITrip } from "../../../utils/models";
 import TripFlag from "./TripFlag";
 
-const TripRow: FC<{ trip: Trip }> = ({ trip }) => {
+const TripRow: FC<{ trip: ITrip }> = ({ trip }) => {
   return (
     <Container>
       <TripFlag country={trip.address.country} />
       <TripInfo trip={trip} />
-      <TripActions id={trip.id} />
+      <TripActions trip={trip} />
     </Container>
   );
 };

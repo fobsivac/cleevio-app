@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import styled from "styled-components";
-import { colors } from "../../styles/variables";
+import { colors } from "../../../styles/variables";
 
 const TripFlag: FC<{ country: string }> = ({ country }) => {
   return (
