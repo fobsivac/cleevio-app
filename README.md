@@ -6,9 +6,12 @@ This is a simple trip management application for Cleevio.
 
 The following technologies are used in this project:
 
-- Next.js ▲
-- TypeScript ᴛs
-- Styled-components 💅
+- Next.js
+- TypeScript
+- Styled-components
+- Zustand  
+- React Query + Axios
+- Formik + Yup
 
 ## Available Scripts
 
