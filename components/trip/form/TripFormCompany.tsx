@@ -1,13 +1,8 @@
 import { ErrorMessage, getIn, useFormikContext } from "formik";
 import React, { ChangeEvent, FC } from "react";
-import {
-  FormGroup,
-  FormSection,
-
-
-} from "../../../styles/form";
+import { FormGroup, FormSection } from "../../../styles/form";
 import { parseNum } from "../../../utils/formats";
-import {Input, InputError, Label} from "../../../styles/input";
+import { Input, InputError, Label } from "../../../styles/input";
 
 const fields = [
   { id: "company_name", label: "Company name" },
@@ -28,7 +23,7 @@ const TripFormCompany: FC = () => {
           <ErrorMessage component={InputError} name={f.id} />
           <Input
             name={f.id}
-            invalid={getIn(errors, f.id) && getIn(touched, f.id)}
+            $error={getIn(errors, f.id) && getIn(touched, f.id)}
             {...(f.id === "address.street_num"
               ? {
                   onChange: (event: ChangeEvent<HTMLInputElement>) =>

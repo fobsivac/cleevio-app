@@ -24,7 +24,7 @@ const TripFormDuration: FC = () => {
           <ErrorMessage component={InputError} name={f.id} />
           <Input
             name={f.id}
-            invalid={getIn(errors, f.id) && getIn(touched, f.id)}
+            $error={getIn(errors, f.id) && getIn(touched, f.id)}
           />
         </FormGroup>
       ))}

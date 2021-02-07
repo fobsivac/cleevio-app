@@ -8,5 +8,13 @@ export const formatDate = (date: string) => format(parseDate(date), "MMM d");
 export const formatDateYear = (date: string) =>
   format(parseDate(date), "MMM d, yyyy");
 
-export const parseNum = (n: number | string | undefined): number | undefined =>
-  typeof n === "number" ? n : typeof n === "string" ? +n : undefined;
+export const parseNum = (
+  n: string | undefined
+): number | string | undefined => {
+  if (typeof n === "string") {
+    const res = parseInt(n);
+    return isNaN(res) ? n : res;
+  }
+
+  return undefined;
+};

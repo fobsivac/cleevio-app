@@ -21,10 +21,14 @@ const initValues: ITripData = {
   start_date: "",
   end_date: "",
   address: {
+    city: "",
+    street: "",
+    street_num: undefined,
     country: "",
     zip: "",
   },
   covid: false,
+  covid_test_date: "",
 };
 
 const Trip: FC<{ trip?: ITrip }> = ({ trip }) => {
@@ -51,7 +55,7 @@ const Trip: FC<{ trip?: ITrip }> = ({ trip }) => {
         address: Yup.object().shape({
           city: Yup.string(),
           street: Yup.string(),
-          street_num: Yup.string(),
+          street_num: Yup.number().typeError("This field must be a number"),
           country: Yup.string().required("This field is required"),
           zip: Yup.string().required("This field is required"),
         }),

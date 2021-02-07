@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { colors } from "./variables";
 import { Field } from "formik";
 
-export const Input = styled(Field)<{ invalid?: boolean }>`
+export const Input = styled(Field)<{ $error?: boolean }>`
   padding: 0.75rem;
   outline: none;
   border: 1px solid ${colors.gray};
@@ -13,10 +13,10 @@ export const Input = styled(Field)<{ invalid?: boolean }>`
     border-color: ${colors.gray2};
   }
 
-  ${({ invalid }) =>
-    invalid &&
+  ${({ $error }) =>
+    $error &&
     css`
-      border-color: ${colors.red};
+      border-color: ${colors.red} !important;
     `}
 
   &:disabled {

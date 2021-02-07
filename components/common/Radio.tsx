@@ -45,6 +45,14 @@ export const Container = styled.div<{ checked?: boolean }>`
 
   input {
     filter: grayscale(100%);
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &:disabled ~ span {
+      color: ${colors.gray6};
+    }
   }
 
   &:hover {

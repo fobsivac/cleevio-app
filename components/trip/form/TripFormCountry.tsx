@@ -18,7 +18,7 @@ const TripFormCountry: FC = () => {
         <ErrorMessage component={InputError} name="address.country" />
         <Input
           name="address.country"
-          invalid={
+          $error={
             getIn(errors, "address.country") &&
             getIn(touched, "address.country")
           }
