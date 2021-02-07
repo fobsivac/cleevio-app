@@ -94,7 +94,7 @@ const Trip: FC<{ trip?: ITripData; id?: string; isFetching?: boolean }> = ({
           <section>
             <Form>
               <FieldSet disabled={!canEdit}>
-                <TripFormCountry />
+                <TripFormCountry disabled={!canEdit} />
                 <TripFormDuration />
                 <TripFormCompany />
                 <TripFormCovid />

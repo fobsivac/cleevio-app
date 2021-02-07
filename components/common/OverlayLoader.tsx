@@ -27,9 +27,9 @@ const Overlay = styled.div`
   background-color: ${colors.white};
   opacity: 0.8;
 
-  animation: 0.2s fade-in ease-in-out;
+  animation: 0.2s fade-in-8 ease-in-out;
   
-  @keyframes fade-in {
+  @keyframes fade-in-8 {
     0% {
       opacity: 0;
     }
