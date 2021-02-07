@@ -1,17 +1,33 @@
 import React, { FC } from "react";
-import { FormGroup, FormSection, Input, Label } from "../../../styles/form";
+import {
+  FormGroup,
+  FormSection,
+
+
+} from "../../../styles/form";
+import { ErrorMessage, getIn, useFormikContext } from "formik";
+import {Input, InputError, Label} from "../../../styles/input";
+
+const fields = [
+  { id: "start_date", label: "Start date" },
+  { id: "end_date", label: "End date" },
+];
 
 const TripFormDuration: FC = () => {
+  const { errors, touched } = useFormikContext();
+
   return (
     <FormSection>
-      <FormGroup>
-        <Label htmlFor="start_date">Start date</Label>
-        <Input type="text" name="start_date" />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="end_date">End date</Label>
-        <Input type="text" name="end_date" />
-      </FormGroup>
+      {fields.map((f) => (
+        <FormGroup key={f.id}>
+          <Label htmlFor={f.id}>{f.label}</Label>
+          <ErrorMessage component={InputError} name={f.id} />
+          <Input
+            name={f.id}
+            invalid={getIn(errors, f.id) && getIn(touched, f.id)}
+          />
+        </FormGroup>
+      ))}
     </FormSection>
   );
 };

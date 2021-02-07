@@ -1,39 +1,46 @@
-import { useFormikContext } from "formik";
+import { ErrorMessage, getIn, useFormikContext } from "formik";
 import React, { ChangeEvent, FC } from "react";
-import { FormGroup, FormSection, Input, Label } from "../../../styles/form";
+import {
+  FormGroup,
+  FormSection,
+
+
+} from "../../../styles/form";
 import { parseNum } from "../../../utils/formats";
+import {Input, InputError, Label} from "../../../styles/input";
+
+const fields = [
+  { id: "company_name", label: "Company name" },
+  { id: "address.city", label: "City" },
+  { id: "address.street", label: "Street" },
+  { id: "address.street_num", label: "Street number" },
+  { id: "address.zip", label: "Zip code" },
+];
 
 const TripFormCompany: FC = () => {
-  const { setFieldValue } = useFormikContext();
+  const { setFieldValue, errors, touched } = useFormikContext();
 
   return (
     <FormSection>
-      <FormGroup>
-        <Label htmlFor="company_name">Company name</Label>
-        <Input type="text" name="company_name" />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="address.city">City</Label>
-        <Input type="text" name="address.city" />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="address.street">Street</Label>
-        <Input type="text" name="address.street" />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="address.street_num">Street number</Label>
-        <Input
-          type="text"
-          name="address.street_num"
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            setFieldValue("address.street_num", parseNum(event.target.value))
-          }
-        />
-      </FormGroup>
-      <FormGroup>
-        <Label htmlFor="address.zip">Zip code</Label>
-        <Input type="text" name="address.zip" />
-      </FormGroup>
+      {fields.map((f) => (
+        <FormGroup key={f.id}>
+          <Label htmlFor={f.id}>{f.label}</Label>
+          <ErrorMessage component={InputError} name={f.id} />
+          <Input
+            name={f.id}
+            invalid={getIn(errors, f.id) && getIn(touched, f.id)}
+            {...(f.id === "address.street_num"
+              ? {
+                  onChange: (event: ChangeEvent<HTMLInputElement>) =>
+                    setFieldValue(
+                      "address.street_num",
+                      parseNum(event.target.value)
+                    ),
+                }
+              : {})}
+          />
+        </FormGroup>
+      ))}
     </FormSection>
   );
 };
