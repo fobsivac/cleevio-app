@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { colors, sizes } from "../../styles/variables";
 import Navbar from "./Navbar";
 import { Sidebar } from "../../styles/sidebar";
-import RouteChangeLoader from "../misc/RouteChangeLoader";
+import RouteChangeLoader from "../common/RouteChangeLoader";
 
 const Page: FC = ({ children }) => {
   return (

@@ -11,21 +11,30 @@ import { isFuture } from "date-fns";
 const TripActions: FC<{ trip: ITrip }> = ({ trip }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { mutate } = useMutation((tripId: string) => removeTrip(tripId), {
-    onSuccess: () => {
-      queryClient.invalidateQueries("trips");
-    },
-  });
+  const { mutate, isLoading } = useMutation(
+    (tripId: string) => removeTrip(tripId),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("trips");
+      },
+    }
+  );
 
   const futureDate = isFuture(parseDate(trip.start_date));
 
   return (
     <Container>
-      <Button btnType="red" icon="remove" onClick={() => mutate(trip.id)} />
+      <Button
+        btnType="red"
+        icon="remove"
+        onClick={() => mutate(trip.id)}
+        disabled={isLoading}
+      />
       <Button
         btnType="secondary"
         icon={futureDate ? "edit" : "arrow"}
         onClick={() => router.push(`/trips/${trip.id}`)}
+        disabled={isLoading}
       />
     </Container>
   );

@@ -3,7 +3,7 @@ import { ITrip, ITripData } from "../utils/models";
 
 export const getTrips = () => api.get<ITrip[]>(`/trip`);
 
-export const getTrip = (id: string) => api.get<ITrip>(`/trip/${id}`);
+export const getTrip = (id: string) => api.get<ITripData>(`/trip/${id}`);
 
 export const createTrip = (data: ITripData) =>
   api.post<{ id: string }>(`/trip`, data);

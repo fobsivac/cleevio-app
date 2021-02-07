@@ -3,6 +3,7 @@ import { colors } from "./variables";
 import { Field } from "formik";
 
 export const Input = styled(Field)<{ $error?: boolean }>`
+  width: 100%;
   padding: 0.75rem;
   outline: none;
   border: 1px solid ${colors.gray};
@@ -22,6 +23,10 @@ export const Input = styled(Field)<{ $error?: boolean }>`
   &:disabled {
     background-color: ${colors.gray};
     border-color: ${colors.gray2};
+  }
+
+  &::placeholder {
+    color: ${colors.gray2};
   }
 `;
 

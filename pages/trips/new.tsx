@@ -1,9 +1,9 @@
 import React from "react";
 import { NextPage } from "next";
 import { PageContent } from "../../styles/page";
-import { PageTitle } from "../../styles/title";
 import Trip from "../../components/trip/Trip";
 import TripSidebar from "../../components/trip/TripSidebar";
+import PageTitle from "../../components/layout/PageTitle";
 
 const NewTripPage: NextPage = () => {
   return (

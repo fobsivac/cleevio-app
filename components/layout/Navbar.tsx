@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useRef } from "react";
 import styled, { css } from "styled-components";
 import { colors, sizes } from "../../styles/variables";
 import Image from "next/image";
@@ -6,6 +6,8 @@ import Link from "next/link";
 import Button from "../common/Button";
 import { useRouter } from "next/router";
 import Icon from "../common/Icon";
+import { useStore } from "../../utils/store";
+import { useClickAway } from "react-use";
 
 const links = [
   { id: "trips", href: "/trips", label: "Your trips", icon: "clock" },
@@ -25,11 +27,20 @@ const links = [
 
 const Navbar: FC = () => {
   const router = useRouter();
+  const [navbar, setNavbar] = useStore((store) => [
+    store.navbar,
+    store.setNavbar,
+  ]);
+  const ref = useRef(null);
 
   const isActive = (href: string): boolean => router.pathname.includes(href);
 
+  useClickAway(ref, () => {
+    if (navbar) setNavbar(false);
+  });
+
   return (
-    <Container>
+    <Container open={navbar} ref={ref}>
       <Link href="/" passHref>
         <a>
           <Image src="/logo.svg" alt="Cleevio" height={38} width={134} />
@@ -56,15 +67,26 @@ const Navbar: FC = () => {
 
 export default Navbar;
 
-const Container = styled.nav`
-  display: none;
+const Container = styled.nav<{ open: boolean }>`
   flex-flow: column;
   align-items: flex-start;
+
+  position: absolute;
+  z-index: 99;
+  height: 100vh;
+  left: ${({ open }) => (open ? "0" : "-15rem")};
+  top: 0;
 
   width: 15rem;
   padding: 2rem;
   background-color: ${colors.secondary};
   overflow-y: auto;
+
+  transition: all 0.4s ease-in-out;
+
+  a {
+    display: inline-block;
+  }
 
   > *:not(:last-child) {
     margin-bottom: 1.5rem;
@@ -72,6 +94,8 @@ const Container = styled.nav`
 
   @media screen and (min-width: ${sizes.tablet}) {
     display: flex;
+    position: initial;
+    height: initial;
   }
 `;
 

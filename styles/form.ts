@@ -1,10 +1,16 @@
-import styled from "styled-components";
-import {colors} from "./variables";
-import {Form as FormikForm} from "formik";
+import styled, { css } from "styled-components";
+import { colors } from "./variables";
+import { Form as FormikForm } from "formik";
 
-export const FormGroup = styled.div`
+export const FormGroup = styled.div<{ mt?: boolean }>`
   display: flex;
   flex-flow: column;
+
+  ${({ mt }) =>
+    mt &&
+    css`
+      margin-top: 1.5rem;
+    `}
 `;
 
 export const FormSection = styled.div`
@@ -32,4 +38,3 @@ export const FieldSet = styled.fieldset`
   padding: 0;
   border: none;
 `;
-

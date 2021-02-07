@@ -3,12 +3,19 @@ import { FormGroup, FormSection } from "../../../styles/form";
 import styled from "styled-components";
 import { Input, InputError, Label } from "../../../styles/input";
 import Radio from "../../common/Radio";
-import { ErrorMessage, useFormikContext } from "formik";
+import { ErrorMessage, getIn, useFormikContext } from "formik";
 import { ITripData } from "../../../utils/models";
 import { colors } from "../../../styles/variables";
+import ReactDatePicker from "react-datepicker";
+import { formatApiDate, parseDatepickerDate } from "../../../utils/formats";
 
 const TripFormCovid = () => {
-  const { errors, touched, values } = useFormikContext<ITripData>();
+  const {
+    errors,
+    touched,
+    values,
+    setFieldValue,
+  } = useFormikContext<ITripData>();
 
   return (
     <FormSection>
@@ -30,12 +37,26 @@ const TripFormCovid = () => {
           <Divider />
           <FormGroup>
             <Label htmlFor="covid_test_date">
-              Date of receiving test results
+              Have you been recently tested for <b>Covid-19?</b>
             </Label>
             <ErrorMessage component={InputError} name="covid_test_date" />
-            <Input
-              name="covid_test_date"
-              $error={errors.covid_test_date && touched.covid_test_date}
+            <ReactDatePicker
+              selected={parseDatepickerDate(values.covid_test_date)}
+              dateFormat="dd. MM. yyyy"
+              onChange={(date) =>
+                setFieldValue("covid_test_date", formatApiDate(date))
+              }
+              customInput={
+                <Input
+                  name="covid_test_date"
+                  placeholder="yyyy-mm-dd"
+                  $error={
+                    getIn(errors, "covid_test_date") &&
+                    getIn(touched, "covid_test_date")
+                  }
+                  autoComplete="off"
+                />
+              }
             />
           </FormGroup>
         </>

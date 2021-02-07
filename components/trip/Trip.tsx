@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import { ITrip, ITripData } from "../../utils/models";
+import { ITripData } from "../../utils/models";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
-import { createTrip } from "../../rest-api/trip";
+import { createTrip, editTrip } from "../../rest-api/trip";
 import { Formik } from "formik";
-import { Form, FieldSet } from "../../styles/form";
+import { FieldSet, Form } from "../../styles/form";
 import TripFormCountry from "./form/TripFormCountry";
 import TripFormDuration from "./form/TripFormDuration";
 import TripFormCompany from "./form/TripFormCompany";
@@ -15,6 +15,7 @@ import TripFormCovid from "./form/TripFormCovid";
 import { parseDate } from "../../utils/formats";
 import { isFuture } from "date-fns";
 import * as Yup from "yup";
+import OverlayLoader from "../common/OverlayLoader";
 
 const initValues: ITripData = {
   company_name: "",
@@ -31,9 +32,13 @@ const initValues: ITripData = {
   covid_test_date: "",
 };
 
-const Trip: FC<{ trip?: ITrip }> = ({ trip }) => {
+const Trip: FC<{ trip?: ITripData; id?: string; isFetching?: boolean }> = ({
+  trip,
+  id,
+  isFetching,
+}) => {
   const router = useRouter();
-  const { mutate } = useMutation((data: ITripData) => createTrip(data), {
+  const post = useMutation((data: ITripData) => createTrip(data), {
     onSuccess: (res) => {
       router.push(`/trip/${res.data.id}`);
     },
@@ -41,13 +46,30 @@ const Trip: FC<{ trip?: ITrip }> = ({ trip }) => {
       console.log(err);
     },
   });
+  const put = useMutation(
+    (data: { tripData: ITripData; tripId: string }) =>
+      editTrip(data.tripId, data.tripData),
+    {
+      onSuccess: (res) => {
+        router.push(`/trip/${res.data.id}`);
+      },
+      onError: (err) => {
+        console.log(err);
+      },
+    }
+  );
 
   const canEdit = trip ? isFuture(parseDate(trip.start_date)) : true;
 
+  const handleSubmit = (data: ITripData) => {
+    id ? put.mutate({ tripData: data, tripId: id }) : post.mutate(data);
+  };
+
   return (
     <Formik
-      initialValues={trip ?? initValues}
-      onSubmit={(data: ITripData) => mutate(data)}
+      initialValues={trip || initValues}
+      onSubmit={handleSubmit}
+      enableReinitialize
       validationSchema={Yup.object({
         start_date: Yup.string().required("This field is required"),
         end_date: Yup.string().required("This field is required"),
@@ -67,7 +89,8 @@ const Trip: FC<{ trip?: ITrip }> = ({ trip }) => {
       })}
     >
       {({ submitForm, isSubmitting }) => (
-        <>
+        <Container>
+          {isFetching && <OverlayLoader />}
           <section>
             <Form>
               <FieldSet disabled={!canEdit}>
@@ -88,13 +111,17 @@ const Trip: FC<{ trip?: ITrip }> = ({ trip }) => {
               Save
             </Button>
           </SubmitSection>
-        </>
+        </Container>
       )}
     </Formik>
   );
 };
 
 export default Trip;
+
+const Container = styled.section`
+  position: relative;
+`;
 
 const SubmitSection = styled.section`
   display: flex;

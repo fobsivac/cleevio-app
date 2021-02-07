@@ -1,6 +1,5 @@
 import React from "react";
 import { PageContent } from "../../styles/page";
-import { PageTitle } from "../../styles/title";
 import { getTrip } from "../../rest-api/trip";
 import { useQuery } from "react-query";
 import { GetServerSideProps, NextPage } from "next";
@@ -9,9 +8,12 @@ import TripSidebar from "../../components/trip/TripSidebar";
 import { parseDate } from "../../utils/formats";
 import { isFuture } from "date-fns";
 import Loader from "../../components/common/Loader";
+import PageTitle from "../../components/layout/PageTitle";
 
 const TripPage: NextPage<{ id: string }> = ({ id }) => {
-  const { data, isLoading, isError } = useQuery("trip", () => getTrip(id));
+  const { data, isLoading, isFetching } = useQuery(["trip", id], () =>
+    getTrip(id)
+  );
 
   const getTitle = (date: string | undefined): string => {
     if (!date) return "New";
@@ -24,12 +26,10 @@ const TripPage: NextPage<{ id: string }> = ({ id }) => {
       <PageContent>
         {isLoading ? (
           <Loader />
-        ) : isError ? (
-          <div>error</div>
         ) : (
           <>
             <PageTitle>{getTitle(data?.data.start_date)} trip</PageTitle>
-            <Trip trip={data?.data} />
+            <Trip trip={data?.data} id={id} isFetching={isFetching} />
           </>
         )}
       </PageContent>

@@ -30,6 +30,7 @@ export default RouteChangeLoader;
 
 const Container = styled.div`
   position: absolute;
+  z-index: 999;
   top: 0;
   left: 0;
 

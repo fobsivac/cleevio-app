@@ -7,12 +7,16 @@ import { Title } from "../../styles/title";
 import Loader from "../common/Loader";
 
 const TripSidebar: FC = () => {
-  const { data, isLoading } = useQuery("trips", getTrips);
+  const { data, isLoading, isFetching } = useQuery("trips", getTrips);
 
   return (
     <Sidebar>
       <Title>Trips</Title>
-      {isLoading ? <Loader /> : <Trips trips={data?.data} sidebar />}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <Trips trips={data?.data} isFetching={isFetching} sidebar />
+      )}
     </Sidebar>
   );
 };

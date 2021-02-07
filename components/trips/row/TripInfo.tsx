@@ -51,6 +51,7 @@ const Country = styled.span`
 
 const Company = styled.span`
   font-size: 14px;
+  white-space: pre;
 `;
 
 const Details = styled.span`

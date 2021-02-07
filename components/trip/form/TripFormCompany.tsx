@@ -23,6 +23,7 @@ const TripFormCompany: FC = () => {
           <ErrorMessage component={InputError} name={f.id} />
           <Input
             name={f.id}
+            placeholder="Type here..."
             $error={getIn(errors, f.id) && getIn(touched, f.id)}
             {...(f.id === "address.street_num"
               ? {
