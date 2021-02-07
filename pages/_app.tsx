@@ -3,8 +3,18 @@ import React from "react";
 import Head from "next/head";
 import Providers from "../components/misc/Providers";
 import Page from "../components/layout/Page";
+import { getCountries } from "../rest-api/country";
+import { ICountry } from "../utils/models";
+import { useStore } from "../utils/store";
 
-const App = ({ Component, pageProps }: AppProps) => {
+const MyApp = ({
+  Component,
+  pageProps,
+  countries,
+}: AppProps & { countries: ICountry[] }) => {
+  const setCountries = useStore((store) => store.setCountries);
+  setCountries(countries);
+
   return (
     <Providers>
       <Head>
@@ -23,4 +33,9 @@ const App = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default App;
+export default MyApp;
+
+MyApp.getInitialProps = async () => {
+  const countries = await getCountries();
+  return { countries: countries.data };
+};

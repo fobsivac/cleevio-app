@@ -3,12 +3,16 @@ import styled from "styled-components";
 import { colors } from "../../../styles/variables";
 import { ITrip } from "../../../utils/models";
 import { formatDate, formatDateYear } from "../../../utils/formats";
+import { useStore } from "../../../utils/store";
 
 const TripInfo: FC<{ trip: ITrip }> = ({ trip }) => {
+  const countries = useStore((store) => store.countries);
+  const country = countries.find((c) => c.value === trip.address.country);
+
   return (
     <Container>
       <Row>
-        <Country>{trip.address.country}</Country>
+        <Country>{country?.label || "Unknown"}</Country>
         <Divider />
         <Details>
           {formatDate(trip.start_date)} - {formatDateYear(trip.end_date)}
