@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { colors, sizes } from "../../styles/variables";
 import Navbar from "./Navbar";
 import { Sidebar } from "../../styles/sidebar";
-import RouteChangeLoader from "../common/RouteChangeLoader";
+import RouteChangeHandler from "../misc/RouteChangeHandler";
 
 const Page: FC = ({ children }) => {
   return (
     <Container>
-      <RouteChangeLoader />
+      <RouteChangeHandler />
       <Navbar />
       <Main>{children}</Main>
     </Container>

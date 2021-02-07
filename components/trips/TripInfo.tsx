@@ -1,15 +1,38 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { colors } from "../../../styles/variables";
-import { ITrip } from "../../../utils/models";
-import { formatDate, formatDateYear } from "../../../utils/formats";
-import { useStore } from "../../../utils/store";
+import { colors } from "../../styles/variables";
+import { ITrip } from "../../utils/models";
+import { formatDate, formatDateYear } from "../../utils/formats";
+import { useStore } from "../../utils/store";
 
-const TripInfo: FC<{ trip: ITrip }> = ({ trip }) => {
+const TripInfo: FC<{ trip: ITrip; mobile?: boolean }> = ({ trip, mobile }) => {
   const countries = useStore((store) => store.countries);
   const country = countries.find((c) => c.value === trip.address.country);
 
-  return (
+  return mobile ? (
+    <>
+      <div>
+        <Label>Company</Label>
+        <div>
+          <div>
+            <b>{trip.company_name}</b>
+          </div>
+          <div>
+            {trip.address.street} {trip.address.street_num}
+          </div>
+          <div>
+            {trip.address.zip} {trip.address.city}
+          </div>
+        </div>
+      </div>
+      <div>
+        <Label>Date</Label>
+        <div>
+          {formatDate(trip.start_date)} - {formatDateYear(trip.end_date)}
+        </div>
+      </div>
+    </>
+  ) : (
     <Container>
       <Row>
         <Country>{country?.label || "Unknown"}</Country>
@@ -70,4 +93,10 @@ const Divider = styled.span`
   margin: 0 1rem;
   background-color: ${colors.gray};
   filter: contrast(0);
+`;
+
+const Label = styled.div`
+  font-size: 12px;
+  color: ${colors.gray10};
+  margin-bottom: 0.25rem;
 `;

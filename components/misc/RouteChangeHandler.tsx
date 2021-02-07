@@ -2,15 +2,19 @@ import React, { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { colors } from "../../styles/variables";
+import { useStore } from "../../utils/store";
 
-const RouteChangeLoader: FC = () => {
+const RouteChangeHandler: FC = () => {
   const router = useRouter();
-
   const [loading, setLoading] = useState(false);
+  const setNavbar = useStore((store) => store.setNavbar);
 
   useEffect(() => {
     const handleStart = () => setLoading(true);
-    const handleComplete = () => setLoading(false);
+    const handleComplete = () => {
+      setNavbar(false);
+      setLoading(false);
+    };
 
     router.events.on("routeChangeStart", handleStart);
     router.events.on("routeChangeComplete", handleComplete);
@@ -26,7 +30,7 @@ const RouteChangeLoader: FC = () => {
   return loading ? <Container /> : null;
 };
 
-export default RouteChangeLoader;
+export default RouteChangeHandler;
 
 const Container = styled.div`
   position: absolute;

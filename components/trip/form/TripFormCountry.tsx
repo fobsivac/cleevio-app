@@ -6,7 +6,7 @@ import { ITripData } from "../../../utils/models";
 import { useStore } from "../../../utils/store";
 import Select from "react-select";
 import { colors } from "../../../styles/variables";
-import TripFlagMobile from "../../trips/rowMobile/TripFlagMobile";
+import TripCountry from "../../trips/TripCountry";
 
 const TripFormCountry: FC<{ disabled?: boolean }> = ({ disabled }) => {
   const {
@@ -29,7 +29,9 @@ const TripFormCountry: FC<{ disabled?: boolean }> = ({ disabled }) => {
           options={countries}
           value={getCountry(values.address.country)}
           onChange={(option) => setFieldValue("address.country", option?.value)}
-          formatOptionLabel={({ value }) => <TripFlagMobile country={value} />}
+          formatOptionLabel={({ value }) => (
+            <TripCountry country={value} mobile />
+          )}
           styles={{
             control: (styles, data) => ({
               ...styles,
@@ -58,6 +60,13 @@ const TripFormCountry: FC<{ disabled?: boolean }> = ({ disabled }) => {
               },
               borderBottom: `1px solid ${colors.gray2}`,
               padding: "0.75rem",
+            }),
+            placeholder: (styles) => ({
+              ...styles,
+              color: colors.gray2,
+            }),
+            indicatorSeparator: () => ({
+              display: "none",
             }),
           }}
           placeholder="Select country"
