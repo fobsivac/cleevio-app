@@ -37,7 +37,7 @@ const TripFormCovid = () => {
           <Divider />
           <FormGroup>
             <Label htmlFor="covid_test_date">
-              Have you been recently tested for <b>Covid-19?</b>
+              Date of receiving test results
             </Label>
             <ErrorMessage component={InputError} name="covid_test_date" />
             <ReactDatePicker
