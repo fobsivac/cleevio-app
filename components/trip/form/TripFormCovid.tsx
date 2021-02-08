@@ -46,6 +46,7 @@ const TripFormCovid = () => {
               onChange={(date) =>
                 setFieldValue("covid_test_date", formatApiDate(date))
               }
+              closeOnScroll={false}
               customInput={
                 <Input
                   name="covid_test_date"

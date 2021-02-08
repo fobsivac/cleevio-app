@@ -16,6 +16,7 @@ import { parseDate } from "../../utils/formats";
 import { isFuture } from "date-fns";
 import * as Yup from "yup";
 import OverlayLoader from "../common/OverlayLoader";
+import { AxiosResponse } from "axios";
 
 const initValues: ITripData = {
   company_name: "",
@@ -38,25 +39,22 @@ const Trip: FC<{ trip?: ITripData; id?: string; isFetching?: boolean }> = ({
   isFetching,
 }) => {
   const router = useRouter();
-  const post = useMutation((data: ITripData) => createTrip(data), {
-    onSuccess: (res) => {
+  const mutationOptions = {
+    onSuccess: (res: AxiosResponse<{ id: string }>) => {
       router.push(`/trip/${res.data.id}`);
     },
-    onError: (err) => {
+    onError: (err: any) => {
       console.log(err);
     },
-  });
+  };
+  const post = useMutation(
+    (data: ITripData) => createTrip(data),
+    mutationOptions
+  );
   const put = useMutation(
     (data: { tripData: ITripData; tripId: string }) =>
       editTrip(data.tripId, data.tripData),
-    {
-      onSuccess: (res) => {
-        router.push(`/trip/${res.data.id}`);
-      },
-      onError: (err) => {
-        console.log(err);
-      },
-    }
+    mutationOptions
   );
 
   const canEdit = trip ? isFuture(parseDate(trip.start_date)) : true;

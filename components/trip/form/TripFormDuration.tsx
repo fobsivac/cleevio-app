@@ -26,6 +26,7 @@ const TripFormDuration: FC = () => {
             selected={parseDatepickerDate(values[f.id])}
             dateFormat="dd. MM. yyyy"
             onChange={(date) => setFieldValue(f.id, formatApiDate(date))}
+            closeOnScroll={false}
             customInput={
               <Input
                 name={f.id}
